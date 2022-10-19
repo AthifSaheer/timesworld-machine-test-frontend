@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .login-first-div {
+    height: 100vh;
+    background-color: #EB9687;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  .login-second-div {
+    background-color: #590098;
+    border-radius: 20px;
+    padding: 40px 30px;
+    margin: 20px;
+    margin-top: 130px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  
+  .login-second-div h3 {
+    color: white;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+    text-transform: uppercase;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  
+  /* input */
+  
+  .login-form .login-input {
+    outline: none;
+    margin-bottom: 15px;
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+  
+  /* button */
+  
+  .login-form .login-submit {
+    height: 40px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #9BE1FF;
+    color: white;
+    letter-spacing: 1px;
+    margin-top: 20px;
+  }
+  
+  /* button end */
+  
+  .login-users {
+    margin-top: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: white;
+    font-weight: 400;
+  }
+  
+  .login-forgot {
+    text-decoration: none;
+    color: white;
+    text-align: end;
+    font-size: 13px;
+    font-weight: 400;
+    padding-left: 330px;
+  }
+  
+  .login-content {
+    margin: 10px auto;
+    width: 400px;
+    color: white;
+  }
+  
+  .login-or {
+    text-align: center;
+    font-size: 20px;
+    background:
+      linear-gradient(white 0 0) left,
+      linear-gradient(white 0 0) right;
+    background-size: 40% 1px;
+    background-repeat: no-repeat;
+  }
+  
+  .login-social-icons {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+  }
+  
+  .passs {
+    position: absolute;
+    outline: none;
+    padding-left: 10px;
+  }
+  
+  @media (max-width:425px) {
+    .passs {
+      max-width: 310px;
+    }
+  }
+  
+  @media (max-width:414px) and (max-height:896px) {
+    .passs {
+      max-width: 300px;
+    }
+  }
+  
+  @media (max-width:412px) and (max-height:915px) {
+    .passs {
+      max-width: 298px;
+    }
+  }
+  
+  @media (max-width:393px) and (max-height:851px) {
+    .passs {
+      max-width: 272px;
+    }
+  }
+  
+  
+  @media (max-width:375px) {
+    .passs {
+      max-width: 259px;
+    }
+  }
+  
+  @media (max-width:360px) and (max-height:740px) {
+    .passs {
+      max-width: 248px;
+    }
+  
+  }
+  
+  @media (max-width:320px) {
+    .passs {
+      max-width: 205px;
+    }
+  }
