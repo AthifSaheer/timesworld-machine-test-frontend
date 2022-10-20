@@ -35,7 +35,7 @@ export default function AlertDialogSlide(propsx) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{propsx.from == "/"? "User loggedin..." : "Account successfully created!"}</DialogTitle>
+        <DialogTitle>{propsx.from == "/"? "User loggedin successfully!" : propsx.from == "/signin"? "Successfully logged out!" : "Account successfully created!"}</DialogTitle>
         {/* <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             Let Google help apps determine location. This means sending anonymous

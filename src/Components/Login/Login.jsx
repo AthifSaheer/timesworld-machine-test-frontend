@@ -20,8 +20,6 @@ import axios from 'axios';
 
 const theme = createTheme();
 
-// var student_name = localStorage.getItem("student_name");
-
 export default function SignUp() {
   const [error, setError] = React.useState('');
   const [popup, setPopup] = React.useState(false);

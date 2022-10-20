@@ -42,9 +42,10 @@ Item.propTypes = {
 
 export default function JustifyContent() {
   const [data, setData] = React.useState('')
+  var token = localStorage.getItem("Token");
 
   React.useEffect(() => {
-    axios.get(UserDetailsAPI).then((response) => {
+    axios.get(`${UserDetailsAPI}/${token}/`).then((response) => {
       console.log("home data get: ", response.data);
       setData(response.data);
     })

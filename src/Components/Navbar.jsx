@@ -14,6 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, useHistory } from "react-router-dom";
+import Popup from './Popup/Popup';
 
 const drawerWidth = 240;
 const navItems = ['Login', 'Signup', 'Logout'];
@@ -22,6 +23,8 @@ function DrawerAppBar(props) {
   const history = useHistory();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  var token = localStorage.getItem("Token");
+  const [popup, setPopup] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -68,16 +71,31 @@ function DrawerAppBar(props) {
             Times world
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-                <Link href={item == 'Login'? "/signin" : item == "Signup"? "/register" : null } variant="body2">
-                  <Button key={item} sx={{ color: '#fff' }} >
-                    {item}
+            {token? 
+              <Button sx={{ color: '#fff' }} onClick={() => {localStorage.removeItem("Token"); setPopup(true)}} >
+                Logout
+              </Button>
+            :
+              <>
+                <Link href="/register" variant="body2">
+                  <Button sx={{ color: '#fff' }} >
+                    Signup
                   </Button>
                 </Link>
-            ))}
+                <Link href="/signin" variant="body2">
+                  <Button sx={{ color: '#fff' }} >
+                    Login
+                  </Button>
+                </Link>
+              </>
+          }
+            
           </Box>
         </Toolbar>
       </AppBar>
+
+      {popup? <Popup from="/signin" /> : null}
+
       <Box component="nav">
         <Drawer
           container={container}
