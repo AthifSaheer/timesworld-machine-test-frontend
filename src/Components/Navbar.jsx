@@ -65,13 +65,15 @@ function DrawerAppBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Maxzon softwares
+            Times world
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }} onClick={() => {history.push('/register');}}>
-                {item}
-              </Button>
+                <Link href={item == 'Login'? "/signin" : item == "Signup"? "/register" : null } variant="body2">
+                  <Button key={item} sx={{ color: '#fff' }} >
+                    {item}
+                  </Button>
+                </Link>
             ))}
           </Box>
         </Toolbar>
