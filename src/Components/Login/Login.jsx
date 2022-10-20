@@ -13,22 +13,48 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from '../Navbar';
+import { LoginAPI } from '../API/APIService'
+import Popup from '../Popup/Popup';
+
+import axios from 'axios';
 
 const theme = createTheme();
 
+// var student_name = localStorage.getItem("student_name");
+
 export default function SignUp() {
+  const [error, setError] = React.useState('');
+  const [popup, setPopup] = React.useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData = new FormData(event.currentTarget);
+
+    var data = {
+      email: formData.get('email'),
+      password: formData.get('password'),
+    }
+
+    axios.post(LoginAPI, data).then(
+      (res) => {
+        console.log("success-- ", res.data)
+        if (res.data.Token) {
+          localStorage.setItem("Token", res.data.Token);
+          setPopup(true)
+        } else {
+          setError(res.data)
+        }
+      }).catch((err) => {
+        console.log(err)
+        // setAxiosError(err)
+    })
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
+      {popup? <Popup from="/" /> : null}
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -56,6 +82,7 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.email? error.email[0] : null}</p>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -67,6 +94,7 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.password? error.password[0] : null}</p>
               </Grid>
             </Grid>
             <Button

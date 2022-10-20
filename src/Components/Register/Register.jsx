@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -18,32 +16,45 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Navbar from '../Navbar';
 import { RegisterAPI } from '../API/APIService'
+import Popup from '../Popup/Popup';
+import { useHistory } from "react-router-dom";
+
 import axios from 'axios';
 
 const theme = createTheme();
 
 export default function SignUp() {
   const [role, setRole] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [success, setSuccess] = React.useState("");
+  const [axiosError, setAxiosError] = React.useState('');
+  const [popup, setPopup] = React.useState(false);
+  let history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     var data = {
+      username: formData.get('username'),
       email: formData.get('email'),
       password: formData.get('password'),
       role: role,
       country: formData.get('country'),
       nationality: formData.get('nationality'),
-      mobile: formData.get('mobile'),
+      mobile_no: formData.get('mobile'),
     }
 
-    console.log("data: ", data);
-
     axios.post(RegisterAPI, data).then(
-      ({res}) => {
-        console.log(res)
+      (res) => {
+        console.log("success-- popup true ", res.data)
+        if (res.data.success) {
+          setPopup(true)
+        } else {
+          setError(res.data)
+        }
       }).catch((err) => {
         console.log(err)
+        setAxiosError(err)
     })
   };
 
@@ -54,6 +65,7 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
+      {popup? <Popup from="signin" /> : null}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -70,19 +82,21 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          <p style={{ color: 'red', fontSize: '14px' }}>{axiosError? axiosError : null}</p>
+          <p style={{ color: 'green', fontSize: '18px' }}>{success? success : null}</p>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="Username"
+                  name="username"
                   required
                   fullWidth
                   id="Username"
                   label="Username"
                   autoFocus
-                  onChange={(e)=> {console.log("e--", e.target.value)}}
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.username? error.username[0] : null}</p>
               </Grid>
                 
               <Grid item xs={12} sm={6}>
@@ -96,13 +110,14 @@ export default function SignUp() {
                       label="Role"
                       onChange={handleChangeRole}
                     >
-                      <MenuItem value={'Student'}>Student</MenuItem>
-                      <MenuItem value={'Staff'}>Staff</MenuItem>
-                      <MenuItem value={'Admin'}>Admin</MenuItem>
-                      <MenuItem value={'Editor'}>Editor</MenuItem>
+                      <MenuItem value={'student'}>Student</MenuItem>
+                      <MenuItem value={'staff'}>Staff</MenuItem>
+                      <MenuItem value={'admin'}>Admin</MenuItem>
+                      <MenuItem value={'editor'}>Editor</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.role? error.role[0] : null}</p>
               </Grid>
 
               <Grid item xs={12} sm={6}>
@@ -114,6 +129,7 @@ export default function SignUp() {
                   name="country"
                   autoComplete="family-name"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.country? error.country[0] : null}</p>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -124,6 +140,7 @@ export default function SignUp() {
                   name="nationality"
                   autoComplete="family-name"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.nationality? error.nationality[0] : null}</p>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -134,6 +151,7 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.email? error.email[0] : null}</p>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -144,6 +162,7 @@ export default function SignUp() {
                   name="mobile"
                   autoComplete="Mobile"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.mobile_no? error.mobile_no[0] : null}</p>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -155,6 +174,7 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                 />
+                <p style={{ color: 'red', fontSize: '14px' }}>{error.password? error.password[0] : null}</p>
               </Grid>
             </Grid>
             <Button

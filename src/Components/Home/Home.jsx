@@ -7,10 +7,6 @@ import axios from 'axios';
 function Item(props) {
   const { sx, ...other } = props;
 
-  axios.get(UserDetailsAPI).then((response) => {
-    console.log("home data get: ", response);
-  })
-  
   return (
     <Box
       sx={{
@@ -45,6 +41,15 @@ Item.propTypes = {
 };
 
 export default function JustifyContent() {
+  const [data, setData] = React.useState('')
+
+  React.useEffect(() => {
+    axios.get(UserDetailsAPI).then((response) => {
+      console.log("home data get: ", response.data);
+      setData(response.data);
+    })
+  },[])
+
   return (
     <div style={{ width: '100%' }}>
       <Box
@@ -66,11 +71,12 @@ export default function JustifyContent() {
             width: '50%',
         }}>
             <h1>Personal details</h1>
-            <p>Username: athif saheer v a athif saheer v a athif saheer v a</p>
-            <p>Email: </p>
-            <p>Role: </p>
-            <p>Country: </p>
-            <p>Mobile No: </p>
+            <p>Username: {data.username}</p>
+            <p>Email: {data.email}</p>
+            <p>Role: {data.role}</p>
+            <p>Nationality: {data.nationality}</p>
+            <p>Country: {data.country}</p>
+            <p>Mobile No: {data.mobile_no}</p>
         </Item>
 
       </Box>
